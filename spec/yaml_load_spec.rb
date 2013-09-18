@@ -8,6 +8,7 @@ describe YamlDb::Load do
 		silence_warnings { ActiveRecord::Base = mock('ActiveRecord::Base', :null_object => true) }
 		ActiveRecord::Base.stub(:connection).and_return(stub('connection').as_null_object)
 		ActiveRecord::Base.connection.stub!(:transaction).and_yield
+		ActiveRecord::Base.connection.stub!(:disable_referential_integrity).and_yield
 	end
 
 	before(:each) do

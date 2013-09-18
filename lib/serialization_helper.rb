@@ -54,7 +54,9 @@ module SerializationHelper
   class Load
     def self.load(io, truncate = true)
       ActiveRecord::Base.connection.transaction do
-        load_documents(io, truncate)
+        ActiveRecord::Base.connection.disable_referential_integrity do
+          load_documents(io, truncate)
+        end
       end
     end
 
